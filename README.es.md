@@ -106,6 +106,8 @@ La pantalla de ajustes del propio juego, con glifos de PlayStation en lugar de l
 
 ### Pantalla de título
 
+El subtítulo «HD Remaster» no está en el juego original. Es una textura sustituida —el pack de texturas trabajando en lo primero que ves— y sirve además para reconocer de un vistazo qué build estás ejecutando.
+
 ![Pantalla de título](media/title-screen.png)
 
 ### Opciones dentro del juego

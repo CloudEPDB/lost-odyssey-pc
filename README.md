@@ -106,6 +106,8 @@ The game's own settings screen, with PlayStation glyphs in place of the Xbox but
 
 ### Title screen
 
+The "HD Remaster" subtitle is not in the original game. It is a replaced texture — the texture pack at work on the very first thing you see — and it doubles as a way to tell at a glance which build you are running.
+
 ![Title screen](media/title-screen.png)
 
 ### In-game options
