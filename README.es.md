@@ -98,13 +98,19 @@ La misma partida, la misma cámara, dos presets. Fíjate en la interfaz, no en e
 |---|---|
 | ![720p](media/comparison-720p.png) | ![1080p nativo](media/comparison-1080p.png) |
 
+### Prompts de botones de DualSense
+
+La pantalla de ajustes del propio juego, con glifos de PlayStation en lugar de los botones de Xbox que traía fijos la versión de 2008.
+
+![Glifos de DualSense](media/dualsense-glyphs.png)
+
+### Pantalla de título
+
+![Pantalla de título](media/title-screen.png)
+
 ### Opciones dentro del juego
 
 ![Menú de opciones](media/options-menu.png)
-
-### Prompts de botones de DualSense
-
-![Glifos de DualSense](media/dualsense-glyphs.png)
 
 ---
 

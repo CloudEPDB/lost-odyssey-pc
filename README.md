@@ -98,13 +98,19 @@ The same save, the same camera, two presets. Look at the interface, not the scen
 |---|---|
 | ![720p](media/comparison-720p.png) | ![1080p native](media/comparison-1080p.png) |
 
+### DualSense button prompts
+
+The game's own settings screen, with PlayStation glyphs in place of the Xbox buttons the 2008 release hardcoded.
+
+![DualSense glyphs](media/dualsense-glyphs.png)
+
+### Title screen
+
+![Title screen](media/title-screen.png)
+
 ### In-game options
 
 ![Options menu](media/options-menu.png)
-
-### DualSense button prompts
-
-![DualSense glyphs](media/dualsense-glyphs.png)
 
 ---
 
