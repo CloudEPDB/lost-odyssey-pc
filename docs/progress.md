@@ -6,6 +6,18 @@ Newest first.
 
 ## September 2026
 
+### Vulkan reaches parity — 7 Sep
+
+Native 1080p and texture replacement now work on Vulkan as well as Direct3D 12. The two renderers are feature-equivalent.
+
+Rather than copy the canvas pin — the most delicate code in the project, and the thing that makes 1080p work at all — it was extracted into one shared implementation both backends call. It turned out to touch no graphics API whatsoever: the entire backend-specific surface is a single lambda that marks the float constant buffers stale, two flags on D3D12 and two mask bits on Vulkan.
+
+The same treatment for texture replacement: hashing, the pack index, PNG decoding and mip generation are now shared, and each renderer only supplies the part that is genuinely its own — creating the resource at the replacement's size and uploading the pixels.
+
+Direct3D 12 was moved onto the shared code last, deliberately, so the risky step happened after it had been proven on Vulkan. Verified with no regression.
+
+One ordering detail worth recording: the rules run in two phases, before and after the copy-mode check, because a resolve must not see the rewritten shader constants. The shared code preserves D3D12's original order rather than imposing a tidier one.
+
 ### Vulkan renderer — 6 Sep
 
 Both backends now live in a single GPU plugin and are selectable from the options menu without reinstalling anything.
@@ -69,8 +81,6 @@ First fully playable build: main menu, gameplay, saves, achievements.
 
 ## Planned
 
-- Canvas pin on Vulkan → 1080p native on both renderers
-- Texture replacement on Vulkan
 - A Linux build
 - Move the F2 settings into the game's own configuration screen, and retire the overlay
 - Remaining UI polish: 1440p overlay artifacts, save list scrolling

@@ -29,9 +29,9 @@ Construido sobre el SDK de recompilación [ReXGlue](https://github.com/rexglue/r
 |---|---|
 | **Arranca y se juega** | Sí — menú, partidas guardadas, logros, cinemáticas |
 | **Renderizadores** | Direct3D 12 y Vulkan, los dos en un plugin, elegibles desde el juego |
-| **1080p nativo** | Funcionando en D3D12 · en curso en Vulkan |
+| **1080p nativo** | Funcionando en los dos |
 | **1440p / 4K** | Funcionando en los dos |
-| **Pack de texturas** | Funcionando en D3D12 · pendiente en Vulkan |
+| **Pack de texturas** | Funcionando en los dos |
 | **Linux** | Aún no compilado — el SDK lo soporta, incluido arm64 |
 | **Android** | El SDK no lo soporta |
 

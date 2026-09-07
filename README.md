@@ -29,9 +29,9 @@ Built on the [ReXGlue](https://github.com/rexglue/rexglue-sdk) recompilation SDK
 |---|---|
 | **Boots and plays** | Yes — main menu, saves, achievements, cutscenes |
 | **Renderers** | Direct3D 12 and Vulkan, both in one plugin, switchable in-game |
-| **1080p native** | Working on D3D12 · in progress on Vulkan |
+| **1080p native** | Working on both |
 | **1440p / 4K** | Working on both |
-| **Texture replacement** | Working on D3D12 · pending on Vulkan |
+| **Texture replacement** | Working on both |
 | **Linux** | Not built yet — the SDK supports it, including arm64 |
 | **Android** | Not supported by the SDK |
 
