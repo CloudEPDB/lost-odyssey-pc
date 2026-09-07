@@ -1,0 +1,53 @@
+# Este repositorio es SOLO documentacion y capturas. Nada del juego, nada
+# compilable, nada compilado. Lo de abajo es un cinturon de seguridad para que
+# no se cuele nada por un "git add -A" descuidado.
+
+# Datos del juego y ejecutables de consola
+*.xex
+*.iso
+*.god
+*.xcp
+*.xzp
+*.bin
+*.dat
+disc*/
+data/
+savedata/
+dump/
+
+# Codigo fuente y binarios del port (no se publican todavia)
+*.c
+*.cc
+*.cpp
+*.h
+*.hpp
+*.inl
+*.rc
+*.exe
+*.dll
+*.lib
+*.obj
+*.pdb
+*.so
+*.a
+CMakeLists.txt
+CMakePresets.json
+*.bat
+*.sh
+*.toml
+
+# Shaders y artefactos de compilacion
+*.spv
+*.dxbc
+*.cso
+out/
+build/
+generated/
+cache/
+
+# Registros y temporales
+*.log
+*.tmp
+Thumbs.db
+desktop.ini
+.DS_Store
