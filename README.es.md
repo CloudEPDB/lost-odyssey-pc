@@ -130,7 +130,7 @@ Un panel temporal: estos ajustes acabarán en el menú de configuración del pro
 
 ## Créditos
 
-Desarrollado y mantenido por **[CloudEPDB](https://github.com/CloudEPDB)**.
+Desarrollado y mantenido por **[FaliGame](https://github.com/FaliGame)**.
 
 Apoyado en el trabajo de otros:
 

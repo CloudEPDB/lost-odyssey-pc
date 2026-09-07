@@ -130,7 +130,7 @@ A temporary overlay — these settings are headed into the game's own configurat
 
 ## Credits
 
-Built and maintained by **[CloudEPDB](https://github.com/CloudEPDB)**.
+Built and maintained by **[FaliGame](https://github.com/FaliGame)**.
 
 Standing on other people's work:
 
