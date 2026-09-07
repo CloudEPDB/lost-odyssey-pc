@@ -94,6 +94,19 @@ The recompiled build originally died after roughly 27 minutes of play with a hea
 
 ---
 
+## Credits
+
+Built and maintained by **[CloudEPDB](https://github.com/CloudEPDB)**.
+
+Standing on other people's work:
+
+- **[ReXGlue](https://github.com/rexglue/rexglue-sdk)** — the static recompilation SDK this port is built on, and the Xenos GPU plugin this project forks.
+- **[Xenia](https://xenia.jp/)** — the emulator whose GPU research underpins essentially all Xbox 360 graphics work, this project included.
+- **boma** — the original Xenia Canary patch set for Lost Odyssey, reimplemented here as runtime hooks.
+- **re:Blue** — the Blue Dragon recompilation, which showed how a finished port on this SDK should look.
+
+---
+
 ## Legal
 
 This repository contains **no game code, no game assets, and no executables** — only documentation and screenshots.
