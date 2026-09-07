@@ -22,9 +22,11 @@ Also investigated and ruled out [XenosRecomp](https://github.com/hedge-dev/Xenos
 
 **Why Vulkan matters here:** it is the prerequisite for Linux. The SDK supports Linux including arm64; Android it does not support at all.
 
-### Texture replacement — 5 Sep
+### Texture replacement, and DualSense glyphs — 5 Sep
 
-Texture dumping to PNG, a replacement pack loaded from disk, and hot reload on **F7** without restarting the game.
+Texture dumping to PNG, a replacement pack loaded from disk, and hot reload on **F7** without restarting the game. Textures are keyed by a content hash (XXH3) rather than by address, so packs survive across sessions and saves.
+
+The first thing that went through it: the button glyph atlas. On-screen prompts can now show DualSense glyphs instead of the Xbox buttons the original release hardcoded.
 
 ### Options menu and turbo — 3–4 Sep
 
@@ -70,6 +72,5 @@ First fully playable build: main menu, gameplay, saves, achievements.
 - Canvas pin on Vulkan → 1080p native on both renderers
 - Texture replacement on Vulkan
 - A Linux build
-- Controller glyph selection (PlayStation / Xbox)
 - Remaining UI polish: 1440p overlay artifacts, save list scrolling
 - The two unported Xenia patches (ultrawide, debug menu)

@@ -4,6 +4,8 @@
 
 *[Léeme en español](README.es.md)*
 
+![Lost Odyssey running on PC](media/hero.png)
+
 > **Status:** in development · playable · source not public yet · no downloads
 > This repository is a progress window, not a release. See the [FAQ](docs/faq.md).
 
@@ -70,6 +72,12 @@ The community patches from Xenia Canary (original patch work by **boma**) are re
 
 Dump every texture the game uses to PNG, replace what you want, and reload the pack in place with **F7** — no restart, no repacking.
 
+Textures are matched by a hash of their contents rather than by memory address, so a pack keeps working across sessions and save files.
+
+### DualSense button prompts
+
+The game's button glyph atlas is one of those replaceable textures, so the on-screen prompts can show PlayStation glyphs instead of the Xbox ones the 2007 release hardcoded. No patching, no separate build — it ships as part of the texture pack.
+
 ### Turbo
 
 Fast-forward at 1.5×, 2× or 3×, as hold or toggle, bindable to a controller button (**F6** on keyboard). Useful for a 2007 JRPG's random encounters and long corridors.
@@ -82,7 +90,21 @@ The recompiled build originally died after roughly 27 minutes of play with a hea
 
 ## Screenshots
 
-*Coming soon — see [media/](media/).*
+### 720p vs native 1080p
+
+The same save, the same camera, two presets. Look at the interface, not the scenery: on the left it is drawn on the console's 1280×720 canvas and stretched to fit your screen. On the right the game is drawing it at 1920×1080.
+
+| 720p — original console mode | 1080p — native |
+|---|---|
+| ![720p](media/comparison-720p.png) | ![1080p native](media/comparison-1080p.png) |
+
+### In-game options
+
+![Options menu](media/options-menu.png)
+
+### DualSense button prompts
+
+![DualSense glyphs](media/dualsense-glyphs.png)
 
 ---
 

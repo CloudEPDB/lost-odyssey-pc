@@ -4,6 +4,8 @@
 
 *[Read this in English](README.md)*
 
+![Lost Odyssey corriendo en PC](media/hero.png)
+
 > **Estado:** en desarrollo · jugable · código aún no publicado · sin descargas
 > Este repositorio es una ventana al progreso, no una release. Ver las [preguntas frecuentes](docs/faq.md).
 
@@ -70,6 +72,12 @@ Los parches de la comunidad para Xenia Canary (trabajo original de **boma**) est
 
 Vuelca a PNG todas las texturas que usa el juego, sustituye las que quieras y recarga el pack en caliente con **F7**: sin reiniciar y sin reempaquetar.
 
+Las texturas se identifican por un hash de su contenido en vez de por su dirección de memoria, así que un pack sigue funcionando entre sesiones y entre partidas guardadas.
+
+### Prompts de botones de DualSense
+
+El atlas de glifos de botones del juego es una de esas texturas sustituibles, así que los prompts en pantalla pueden mostrar glifos de PlayStation en vez de los de Xbox que traía fijos la versión de 2007. Sin parchear nada y sin una build aparte: va dentro del pack de texturas.
+
 ### Turbo
 
 Avance rápido a ×1,5, ×2 o ×3, como pulsación mantenida o conmutador, asignable a un botón del mando (**F6** en teclado). Útil en un JRPG de 2007 con combates aleatorios y pasillos largos.
@@ -82,7 +90,21 @@ La build recompilada moría al principio tras unos 27 minutos de juego con un fa
 
 ## Capturas
 
-*Próximamente — ver [media/](media/).*
+### 720p frente a 1080p nativo
+
+La misma partida, la misma cámara, dos presets. Fíjate en la interfaz, no en el escenario: a la izquierda está dibujada sobre el lienzo de 1280×720 de la consola y estirada hasta tu pantalla. A la derecha el juego la está dibujando a 1920×1080.
+
+| 720p — modo original de consola | 1080p — nativo |
+|---|---|
+| ![720p](media/comparison-720p.png) | ![1080p nativo](media/comparison-1080p.png) |
+
+### Opciones dentro del juego
+
+![Menú de opciones](media/options-menu.png)
+
+### Prompts de botones de DualSense
+
+![Glifos de DualSense](media/dualsense-glyphs.png)
 
 ---
 
