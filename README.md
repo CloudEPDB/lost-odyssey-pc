@@ -62,6 +62,8 @@ On top of the preset: 1×/2×/3× SSAA, FXAA (off / normal / extreme), and a pre
 
 Press **F2**. Resolution, antialiasing, renderer, patches, turbo and textures, in one place, in the game, without editing config files. Changes that can be applied live are applied live; those that cannot relaunch the game for you.
 
+This overlay is temporary. In the finished port these settings move into the game's own configuration screen, next to the original options, so there is one place to configure the game rather than two. The F2 panel is scaffolding while the settings themselves are still changing.
+
 ### Game patches, toggleable at runtime
 
 The community patches from Xenia Canary (original patch work by **boma**) are reimplemented as recompiler hooks rather than byte patches, so each one is a switch you can flip while playing:
@@ -111,6 +113,8 @@ The "HD Remaster" subtitle is not in the original game. It is a replaced texture
 ![Title screen](media/title-screen.png)
 
 ### In-game options
+
+A temporary overlay — these settings are headed into the game's own configuration screen.
 
 ![Options menu](media/options-menu.png)
 

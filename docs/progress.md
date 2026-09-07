@@ -72,5 +72,6 @@ First fully playable build: main menu, gameplay, saves, achievements.
 - Canvas pin on Vulkan → 1080p native on both renderers
 - Texture replacement on Vulkan
 - A Linux build
+- Move the F2 settings into the game's own configuration screen, and retire the overlay
 - Remaining UI polish: 1440p overlay artifacts, save list scrolling
 - The two unported Xenia patches (ultrawide, debug menu)

@@ -62,6 +62,8 @@ Sobre el preset: SSAA ×1/×2/×3, FXAA (desactivado / normal / extremo) y filtr
 
 Tecla **F2**. Resolución, antialiasing, renderizador, parches, turbo y texturas, todo en un sitio, dentro del juego, sin editar ficheros de configuración. Lo que se puede aplicar en caliente se aplica en caliente; lo que no, relanza el juego por ti.
 
+Este panel es temporal. En la versión final estos ajustes pasarán al menú de configuración del propio juego, junto a las opciones originales, para que haya un solo sitio donde configurarlo todo y no dos. El F2 es un andamio mientras los ajustes siguen cambiando.
+
 ### Parches del juego, conmutables en marcha
 
 Los parches de la comunidad para Xenia Canary (trabajo original de **boma**) están reimplementados como hooks del recompilador en vez de como parches de bytes, así que cada uno es un interruptor que puedes cambiar mientras juegas:
@@ -111,6 +113,8 @@ El subtítulo «HD Remaster» no está en el juego original. Es una textura sust
 ![Pantalla de título](media/title-screen.png)
 
 ### Opciones dentro del juego
+
+Un panel temporal: estos ajustes acabarán en el menú de configuración del propio juego.
 
 ![Menú de opciones](media/options-menu.png)
 
