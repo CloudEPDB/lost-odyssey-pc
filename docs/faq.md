@@ -14,6 +14,16 @@ Eventually, of a *patcher* — never of the game.
 
 Any release would require you to supply your own legally obtained copy of Lost Odyssey. No game code, no game assets, and no recompiled executable will ever be distributed here. That is not only a legal position, it's the practical one: it is what keeps projects like this online.
 
+### What will I need to play it?
+
+Your own copy of the game — all four discs.
+
+The intended layout is one folder per disc next to the executable, `data\disc1` to `data\disc4`, each holding that disc's extracted files. ISO images and Games on Demand packages also work, read where they are without extracting anything. The game changes discs by itself when the story needs it.
+
+### Does it modify my game files?
+
+No. Game data is only ever read. The one file the port copies is the disc 1 executable, into its own cache, and only when booting from an ISO image or a Games on Demand package. The in-game settings read the game's font and menu textures from your copy each time; they are never stored anywhere.
+
 ### Why not just use Xenia?
 
 Xenia is an excellent emulator and this project would not exist without the work behind it. They solve different problems.

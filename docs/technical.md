@@ -105,4 +105,82 @@ The catch is verification: the hook has to sit at an address that means the same
 
 ---
 
+## 5. SMAA on the final frame
+
+SMAA 1x runs where the emulator's FXAA already did: on the frame about to be presented, after the guest has finished drawing. It is the reference implementation, unmodified, compiled into three compute passes — edge detection, blending weights, neighbourhood blending — with its area and search lookup textures uploaded once. A single HLSL source produces DXBC for Direct3D 12 and SPIR-V for Vulkan.
+
+Running pixel-shader code as compute needed two adjustments. The edge detection pass uses `discard`, which compute does not have; it is redefined to write zero weights into a target that starts cleared, which is exactly what discarding would have left there. And every texture read becomes an explicit level-0 sample, because compute has no derivatives.
+
+The Vulkan validation layers caught a real bug that the NVIDIA driver was quietly tolerating. The presenter's gamma pass declares its storage image as `rgb10_a2`, and the first version pointed it at the FXAA source image, which is RGBA16F — undefined behaviour that happened to look correct. SMAA now has its own intermediate image in the presenter's guest output format, and the validation output is clean.
+
+Applying SMAA to the final frame means the HUD is antialiased too. For an interface made of flat 2D art that is harmless, and it keeps the effect independent of the game's own render passes.
+
+TAA was evaluated and not attempted yet. Doing it properly on a 360 game means injecting camera jitter into specific shaders, capturing the scene before the HUD is drawn, and having depth, history and motion vectors — a different order of work from a post-process pass.
+
+---
+
+## 6. Wrapping whole guest functions
+
+Section 4 described mid-instruction hooks. Some features need to act *around* a function instead — before it runs, after it returns — and the SDK allows that too, although it is not presented as a feature: every recompiled function is emitted as a weak alias of its implementation. Defining a function with the same name in the project replaces it at link time, and the original stays callable under its implementation name.
+
+```cpp
+REX_EXTERN(__imp__sub_82B88020);  // the recompiled original
+
+REX_EXTERN(sub_82B88020) {         // replaces it at link time
+  // ...before...
+  __imp__sub_82B88020(ctx, base);
+  // ...after...
+}
+```
+
+No generated code is edited, nothing is byte-patched, and it links without duplicate symbols. Three features in this port are built this way:
+
+- **Save anywhere** wraps the System menu's permission setter and its menu task, so the Save row stays enabled away from save points and the game's own permission comes back when the option is turned off.
+- **The settings tabs** wrap the Configuration screen's task, to know every frame whether the screen is open and interactive.
+- **Disc changes** wrap the game's one call site of `XamSwapDisc`.
+
+---
+
+## 7. New menu pages that look native
+
+The settings tabs are drawn by the port, on top of the game's own Configuration screen, and are meant to be indistinguishable from it. That breaks down into three problems: knowing when to draw, taking the controller, and looking right.
+
+**When.** The Configuration screen is a task object in the game. One of its fields reaches an "interactive" state once the opening animation has finished, and another is non-zero while a native dialog is open on top of it. Wrapping the task (section 6) reads both every frame. The tabs are only shown while the screen is interactive with nothing above it, and vanish the moment that stops being true, so they never fight the game's own transitions or dialogs.
+
+**The controller.** The game reads the pad in two places, and both pass through one hook. While one of the port's tabs is open, the hook reads the buttons for the page and hands the game a pad at rest, so the native page underneath does not react. Buttons still held when switching back to the native page are withheld until they are released — otherwise the same B press that returns to the game's options would also close them.
+
+**Looking right.** An imitation with a similar font was never going to pass, so the port uses the real assets, read from the player's own game data when it starts: the menu font, the title font, and the texture atlas that holds the brushed-metal panels, the curved corner of the side panel, and the cursor. Reaching them means walking a chain of formats:
+
+1. the disc's file index, whose names are packed in base 40 against a shared dictionary;
+2. an archive whose entries use a custom, bit-oriented LZ compression;
+3. an Unreal Engine 3 package, big-endian;
+4. inside it, `Texture2D` objects holding DXT5 data that is LZO-compressed, stored in the Xbox 360's tiled block order and byte-swapped per 16-bit word — and `Font` objects, glyph tables laid over those textures.
+
+Every step was validated first with a throwaway Python prototype that decoded the assets to PNG files, before any of it went into the executable.
+
+The layout was then measured from a screenshot of the native screen, pixel profile by pixel profile: panel edges and bevel colours, the inset of the selected value, the drop shadow under the highlighted row, the exact scale of each font, and the fact that the help bar uses the same font squeezed horizontally. Highlighted and inactive text are drawn with recoloured copies of the font pages: the game's glyphs are a white face with a black outline, and no multiplicative tint can turn that into the dark face with a light outline that the game uses on a highlighted row.
+
+None of the game's assets are in this repository or in the port. If the data cannot be read, the page falls back to a plain style instead of failing.
+
+---
+
+## 8. Four discs
+
+Each of Lost Odyssey's four discs carries its own copy of the executable — the same code, with a header that says "disc N of 4" — and its own set of archives. Comparing the discs file by file, five archives differ from one disc to the next: the file index, events, field data, video and sound. The rest are identical.
+
+When the game needs another disc, it calls `XamSwapDisc` with the disc number and an event to signal once the disc is in, waits on that event, and then re-reads the file index to check it has the disc it asked for. In the SDK, `XamSwapDisc` is a stub that reports success and never signals anything.
+
+The port wraps the game's only call site. After the original runs, it looks the requested disc up, re-points the `game:` and `d:` links of the virtual filesystem to a device over that disc, and signals the event. The game's own check then passes, and it carries on. Devices for previous discs stay registered, since the game may still hold files open on them.
+
+Discs are identified by that executable header, never by name. The same catalogue accepts every common form, each read in place by one of the SDK's filesystem devices: an extracted folder, an XDVDFS ISO image, or a Games on Demand package. Booting from an image has one wrinkle: the SDK needs the entry executable to be a file inside a folder, so only `default.xex` (6 MB) is copied to the cache, and the image is mounted over it as soon as the runtime exists.
+
+Two lessons from getting there:
+
+- **Mount order matters.** Mounting a different disc early in startup crashed the game on launch. The SDK still reads `game:\default.xex` while it prepares the module, and at that moment it found another disc's executable. Anything that changes the mounted disc has to wait until the module is prepared.
+- **Check what you are given.** A folder labelled `disc2` on the development machine turned out to be a second copy of disc 1: every file hashed identical. Reading the real disc 2 image straight out of its zip archive — streaming, without extracting it — is what showed which files genuinely differ, and it is also why the port trusts executable headers rather than names.
+
+Validated so far: a disc change forced by booting with disc 2 mounted, where the game immediately asked for disc 1, got it, and continued; and a full boot from an ISO image, including the in-game settings reading their assets from it. Not yet exercised: a disc change at a real chapter boundary, a change between ISO images, and Games on Demand packages.
+
+---
+
 *More to come as the port progresses.*

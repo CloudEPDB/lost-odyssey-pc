@@ -6,6 +6,42 @@ Newest first.
 
 ## September 2026
 
+### All four discs, and discs as ISO or GOD — 11 Sep
+
+Disc changes now work. When the game asks for another disc, the port finds it, mounts it and lets the game continue, with no prompt.
+
+- The game requests discs from one place, through `XamSwapDisc`, which the SDK only stubs. The port wraps that call site, re-points the virtual filesystem at the requested disc and signals the event the game is waiting on. [Details →](technical.md#8-four-discs)
+- Discs are recognised by their executable's header, so names do not matter. The intended layout is `data\disc1` … `data\disc4` next to the executable.
+- Extracted folders, ISO images and Games on Demand packages are all read in place; nothing is extracted or copied, except the disc 1 executable when booting from an image.
+- A missing disc produces a notice with a retry option instead of a hang.
+- The in-game settings now read the game's font and textures through the same disc layer, so they work whichever form the discs are in.
+
+Verified: a forced change from disc 2 to disc 1, and a full boot from an ISO image. Not yet verified: a change at a real chapter boundary, and Games on Demand packages.
+
+Along the way, a folder labelled as disc 2 turned out to be a copy of disc 1. Reading the real image directly out of its zip showed that five archives differ between discs.
+
+### Settings move into the game's own menu — 11 Sep
+
+The game's Configuration screen now has four more tabs — Graphics, Patches, Extras, Textures — reached with **RB** from the native page.
+
+- The screen is detected by wrapping its task in the game, which reports when it is interactive and when a native dialog covers it. The port only draws while the screen is interactive and uncovered.
+- While a port tab is open, the game receives a controller at rest, and buttons still held on the way back to the native page are withheld until released.
+- The tabs are drawn with the game's own font, menu textures and cursor, decoded at runtime from the player's data through a chain of index, archive, Unreal Engine 3 package, LZO-compressed tiled DXT5 textures and font glyph tables. [How →](technical.md#7-new-menu-pages-that-look-native)
+- The layout was measured from a screenshot of the native screen, down to bevel colours, shadows and a help bar that squeezes its font horizontally.
+- Every option from the F2 overlay is here, applied immediately where possible; changes that need a restart come with a confirmed restart.
+
+### Save anywhere — 11 Sep
+
+An optional toggle that enables Save in the System menu away from save points, using the game's own save flow. Tested by saving far from a save point, reloading in the same place and moving normally, and confirming that with the option off Save is greyed out again away from save points and still available at real ones.
+
+Built by wrapping the menu's permission setter and its task rather than faking a save point. The table and functions involved were located by the published research of the [LostOdysseyRecomp](https://github.com/freefrank/LostOdysseyRecomp) project.
+
+### SMAA 1x on both renderers — 11 Sep
+
+The reference SMAA implementation, unmodified, runs as three compute passes on the final frame in Direct3D 12 and Vulkan, selectable next to FXAA. [Details →](technical.md#5-smaa-on-the-final-frame)
+
+The Vulkan validation layers turned up a storage-image format mismatch that the driver had been hiding. Fixing it properly meant giving SMAA its own image in the presenter's output format. TAA was evaluated and postponed.
+
 ### Vulkan reaches parity — 7 Sep
 
 Native 1080p and texture replacement now work on Vulkan as well as Direct3D 12. The two renderers are feature-equivalent.
@@ -82,6 +118,8 @@ First fully playable build: main menu, gameplay, saves, achievements.
 ## Planned
 
 - A Linux build
-- Move the F2 settings into the game's own configuration screen, and retire the overlay
+- Retire the F2 overlay, now that the settings live in the game's own Configuration screen
+- Verify disc changes at real chapter boundaries, and a full playthrough across the four discs
+- Test Games on Demand packages
 - Remaining UI polish: 1440p overlay artifacts, save list scrolling
 - The two unported Xenia patches (ultrawide, debug menu)
